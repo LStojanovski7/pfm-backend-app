@@ -198,11 +198,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\src.csproj",
-      "projectName": "src",
-      "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\src.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj",
+      "projectName": "API",
+      "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj",
       "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\obj\\",
+      "outputPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",

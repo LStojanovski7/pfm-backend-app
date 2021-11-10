@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\src.csproj": {}
+    "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\src.csproj": {
+    "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\src.csproj",
-        "projectName": "src",
-        "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\src.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj",
+        "projectName": "API",
+        "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\obj\\",
         "projectStyle": "PackageReference",

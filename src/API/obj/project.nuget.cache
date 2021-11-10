@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7EtrZkhLzZcnNBbaLqIwEBX8hdaWHabf4oar7h4xmjLKrAGzX9WO7ZDIvpcd+h9eX/GWp6lS1foDAOvn/oCBfw==",
+  "dgSpecHash": "hjy4leveyzgFzN/+8DEsqzybAuarszjAisAden9mJHBb8ybnaefXy6/c2rVC0d919vNH4DaSzun1eA4OQCayog==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\src.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
