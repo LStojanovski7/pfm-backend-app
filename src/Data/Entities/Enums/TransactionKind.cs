@@ -6,7 +6,7 @@ namespace Data.Entities.Enums
         wdw,
         pmt,
         fee,
-        inc,
+        inc, 
         adj,
         lnd,
         lnr,
