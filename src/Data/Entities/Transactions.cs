@@ -1,3 +1,5 @@
+using Data.Entities.Enums;
+
 namespace Data.Entities
 {
     public class Transaction

@@ -1,6 +1,6 @@
-namespace Data.Entities
+namespace Data.Entities.Enums
 {
-    public enum Mcc
+    public enum TransactionKind
     {
         dep,
         wdw,
