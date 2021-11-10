@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Data;
+using Npgsql;
 
 namespace src
 {
@@ -30,7 +33,12 @@ namespace src
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "src", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+            });
+
+            services.AddDbContext<AppDbContext>(options => 
+            {
+                options.UseNpgsql(CreateConnectionString());
             });
         }
 
@@ -41,7 +49,7 @@ namespace src
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "src v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
 
             app.UseHttpsRedirection();
@@ -54,6 +62,28 @@ namespace src
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private string CreateConnectionString()
+        {
+            string _username = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? this.Configuration["Database:Username"];
+            string _password = Environment.GetEnvironmentVariable("DATABASE_PASSOWRD") ?? this.Configuration["Database:Password"];
+            string _host = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? this.Configuration["Database:Host"];
+            string _port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? this.Configuration["Database:Port"];
+            string _database = Environment.GetEnvironmentVariable("DATABASE_NAME") ?? this.Configuration["Database:Name"];
+            
+            var builder = new NpgsqlConnectionStringBuilder()
+            {
+                Username = _username,
+                Password = _password,
+                Host = _host,
+                Port = int.Parse(_port),
+                Database = _database,
+                Pooling = true,
+                // Timeout = ?
+            };
+
+            return builder.ConnectionString;
         }
     }
 }
