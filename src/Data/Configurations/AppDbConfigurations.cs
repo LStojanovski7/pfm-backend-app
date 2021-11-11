@@ -11,9 +11,9 @@ namespace Data.Configurations
             builder.ToTable("transactions");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).IsRequired()
-                                       .Metadata
-                                       .SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
+            builder.Property(x => x.Id);//.IsRequired()
+                                       //.Metadata
+                                       //.SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
                                        
             builder.Property(x => x.BeneficiaryName).IsRequired();
 
@@ -28,13 +28,13 @@ namespace Data.Configurations
                                              .HasMaxLength(3)
                                              .IsRequired();
 
-            builder.Property(x => x.Mcc).HasConversion<string>();
+            builder.Property(x => x.Mcc).HasConversion<int>();
             
             builder.Property(x => x.Kind).HasConversion<string>()
                                          .IsRequired();
             
-            builder.Property(x => x.Code).Metadata
-                                         .SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
+            builder.Property(x => x.Code);//.Metadata
+                                         //.SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
         }
     }
 
@@ -48,6 +48,17 @@ namespace Data.Configurations
             builder.Property(x => x.Code).IsRequired();
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.ParrentCode);
+        }
+    }
+
+    public class MerchantTypeConfiguration : IEntityTypeConfiguration<MerchantType>
+    {
+        public void Configure(EntityTypeBuilder<MerchantType> builder)
+        {
+            builder.ToTable("merchantTypes");
+
+            builder.HasKey(x => x.Code);
+            builder.Property(x => x.Code).IsRequired();
         }
     }
 }

@@ -38,3 +38,5 @@ C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Data.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Services.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Data.pdb
 C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Services.pdb
+C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Humanizer.dll
+C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll

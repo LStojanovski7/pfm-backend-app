@@ -11,7 +11,7 @@ namespace Data.Entities
          public double Amount { get; set; }
          public string Description { get; set; }
          public string Currency { get; set; }
-         public Mcc? Mcc { get; set; }
+         public int Mcc { get; set; }
          public TransactionKind Kind { get; set; }
          public string Code { get; set; }
     }

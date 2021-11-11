@@ -39,6 +39,7 @@ namespace src
             services.AddDbContext<AppDbContext>(options => 
             {
                 options.UseNpgsql(CreateConnectionString());
+                options.UseNpgsql(npgsqlOptionsAction: x => x.MigrationsAssembly("API"));
             });
         }
 
