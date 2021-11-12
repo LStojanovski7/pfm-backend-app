@@ -20,24 +20,24 @@ namespace API.Controllers
             
         }
 
-        [HttpPost("import")]
-        public async Task<ActionResult> Import()
-        {
-            var file = Request.Form.Files[0];
+        // [HttpPost("import")]
+        // public async Task<ActionResult> Import()
+        // {
+        //     var file = Request.Form.Files[0];
 
-            List<string> output = new List<string>();
 
-            using(var reader = new StreamReader(file.OpenReadStream()))
-            {
-                string line;
+        //     // using(var reader = new StreamReader(file.OpenReadStream()))
+        //     // {
+        //     //     string line;
 
-                while((line = await reader.ReadLineAsync()) != null)
-                {
-                    output.Add(line);
-                }
-            }
+        //     //     while((line = await reader.ReadLineAsync()) != null)
+        //     //     {
+        //     //         output.Add(line);
+        //     //     }
+        //     // }
 
-            return Ok(output);
-        }
+
+        //     return Ok();
+        // }
     }
 }

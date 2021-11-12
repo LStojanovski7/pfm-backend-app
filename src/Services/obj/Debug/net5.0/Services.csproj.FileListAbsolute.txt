@@ -10,3 +10,6 @@ C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\Services.cspro
 C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\Services.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\ref\Services.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\Services.pdb
+C:\Users\PC\Desktop\pfm-backend-app\src\Services\bin\Debug\net5.0\Data.dll
+C:\Users\PC\Desktop\pfm-backend-app\src\Services\bin\Debug\net5.0\Data.pdb
+C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\Services.csproj.CopyComplete
