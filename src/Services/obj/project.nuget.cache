@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "45/OcTtwovnfUMXNBbRxKneUAfGrGRakl65gPj9U/1if3ADYc3lJyeap5hTgR5dF0szgcjG6Ivm7fQ4hrsEnPA==",
+  "dgSpecHash": "6KfON9H+L0C4Rt1zQJSIudRzVO9dQl4+U8R7KWP7Ey9maD4YE98Hbn9JD5M69qn3JH/xmAqiKn5R9ShZe0C+0Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Services\\Services.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\PC\\.nuget\\packages\\csvhelper\\27.1.1\\csvhelper.27.1.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.11\\microsoft.entityframeworkcore.5.0.11.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.11\\microsoft.entityframeworkcore.abstractions.5.0.11.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\5.0.11\\microsoft.entityframeworkcore.analyzers.5.0.11.nupkg.sha512",

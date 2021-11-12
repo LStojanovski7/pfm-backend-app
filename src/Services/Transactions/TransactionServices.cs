@@ -1,8 +1,7 @@
-using Services.Interfaces;
 using Data.Repositories.Transactions;
 using Data.Entities;
 
-namespace Services
+namespace Services.Transactions
 {
     public class TransactionServices : ITransactionServices
     {

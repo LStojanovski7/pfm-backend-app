@@ -13,6 +13,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Data;
+using Data.Repositories.Categories;
+using Data.Repositories.Transactions;
+using Services.Categories;
+using Services.Transactions;
 using Npgsql;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
@@ -59,6 +63,14 @@ namespace src
                 options.UseNpgsql(CreateConnectionString());
                 options.UseNpgsql(npgsqlOptionsAction: x => x.MigrationsAssembly("API"));
             });
+
+            //repos
+            services.AddTransient<ICategoriesRepository, CategoriesRepository>();
+            services.AddTransient<ITransactionsRepository, TransactionsRepository>();
+
+            //services
+            services.AddTransient<ICategoryServices, CategoryServices>();
+            services.AddTransient<ITransactionServices, TransactionServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
