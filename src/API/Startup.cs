@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Data;
 using Npgsql;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace src
 {
@@ -30,13 +31,30 @@ namespace src
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            //if using kestrel
+            services.Configure<KestrelServerOptions>(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                // options.AllowSynchronousIO = true;
             });
 
-            services.AddDbContext<AppDbContext>(options => 
+            //if using IIS
+            services.Configure<IISServerOptions>(options =>
+            {
+                // options.AllowSynchronousIO = true;
+            });
+
+            services.AddControllers();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Personal Finance Management API",
+                    Version = "v1",
+                    Description = " ",
+                });
+            });
+
+            services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseNpgsql(CreateConnectionString());
                 options.UseNpgsql(npgsqlOptionsAction: x => x.MigrationsAssembly("API"));
@@ -49,8 +67,13 @@ namespace src
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.yaml", "API v1");
+                    options.RoutePrefix = string.Empty;
+                });
             }
 
             app.UseHttpsRedirection();
@@ -72,7 +95,7 @@ namespace src
             string _host = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? this.Configuration["Database:Host"];
             string _port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? this.Configuration["Database:Port"];
             string _database = Environment.GetEnvironmentVariable("DATABASE_NAME") ?? this.Configuration["Database:Name"];
-            
+
             var builder = new NpgsqlConnectionStringBuilder()
             {
                 Username = _username,
