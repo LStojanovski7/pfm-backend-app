@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Data;
+using Data.Entities;
+using Data.Repositories;
 using Data.Repositories.Categories;
 using Data.Repositories.Transactions;
 using Services.Categories;
@@ -65,12 +67,13 @@ namespace src
             });
 
             //repos
-            services.AddTransient<ICategoriesRepository, CategoriesRepository>();
-            services.AddTransient<ITransactionsRepository, TransactionsRepository>();
+            services.AddScoped<IRepository<Category>, Repository<Category>>();
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<ITransactionsRepository, TransactionsRepository>();
 
             //services
-            services.AddTransient<ICategoryServices, CategoryServices>();
-            services.AddTransient<ITransactionServices, TransactionServices>();
+            services.AddScoped<ICategoryServices, CategoryServices>();
+            services.AddScoped<ITransactionServices, TransactionServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +101,9 @@ namespace src
             {
                 endpoints.MapControllers();
             });
+
+            //Import MerchantCodes
+            AppDbExtension.SeedData();
         }
 
         private string CreateConnectionString()

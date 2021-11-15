@@ -8,6 +8,7 @@ using System.IO;
 using CsvHelper;
 using System.Threading.Tasks;
 using System.Text;
+using Services.Transactions;
 
 namespace API.Controllers
 {
@@ -15,29 +16,20 @@ namespace API.Controllers
     [Route("[controller]")]
     public class TransactionsController : ControllerBase
     {
-        public TransactionsController()
+        private readonly ITransactionServices _transactionService;
+        public TransactionsController(ITransactionServices transactionService)
         {
-            
+            _transactionService = transactionService;
         }
 
-        // [HttpPost("import")]
-        // public async Task<ActionResult> Import()
-        // {
-        //     var file = Request.Form.Files[0];
+        [HttpPost("import")]
+        public async Task<ActionResult> Import()
+        {
+            var file = Request.Form.Files[0];
 
+            await _transactionService.Import(file.OpenReadStream());
 
-        //     // using(var reader = new StreamReader(file.OpenReadStream()))
-        //     // {
-        //     //     string line;
-
-        //     //     while((line = await reader.ReadLineAsync()) != null)
-        //     //     {
-        //     //         output.Add(line);
-        //     //     }
-        //     // }
-
-
-        //     return Ok();
-        // }
+            return Ok("Transactions imported");
+        }
     }
 }

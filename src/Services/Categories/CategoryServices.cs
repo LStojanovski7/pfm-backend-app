@@ -13,6 +13,7 @@ namespace Services.Categories
     public class CategoryServices : ICategoryServices
     {
         private readonly ICategoriesRepository _repository;
+        // private readonly IRepository<Category> _repository;
         public CategoryServices(ICategoriesRepository repository)
         {
             _repository = repository;
@@ -20,12 +21,17 @@ namespace Services.Categories
 
         public async Task<List<Category>> GetCategories(string parrentId = null)
         {
+            var category =  await _repository.GetCategory(parrentId);
+
+            if(category == null)
+            {
+                return await _repository.Get(null); 
+            }
             return await _repository.Get(parrentId);
         }
 
-        public async Task ImportCategories(Stream stream)
+        public async Task Import(Stream stream)
         {
-            //TODO: read data
             List<CategoriesCSV> result = new List<CategoriesCSV>();
 
             using(var reader = new StreamReader(stream))
@@ -34,11 +40,8 @@ namespace Services.Categories
                 csvReader.Context.RegisterClassMap<CategoryMap>();
                 result = csvReader.GetRecords<CategoriesCSV>().ToList<CategoriesCSV>();
             }
-
             //NEED AUTOMAPER
-
-            List<Category> categoriesList = new List<Category>();
-
+            //TODO: validations
             foreach(var item in result)
             {
                 Category category = new Category();
@@ -47,26 +50,14 @@ namespace Services.Categories
                 category.ParrentCode = item.ParentCode;
                 category.Name = item.Name;
 
-                categoriesList.Add(category);
+                await _repository.Add(category);
             }
-
-            //TODO: validations
-
-           await _repository.Import(categoriesList);
         }
 
         public async Task<Category> Add(Category category)
         {
-            var entity = await _repository.GetCategory(category.Code);
 
-            if(entity != null)
-            {
-                await Update(entity);
-            }
-            else
-            {
-                await _repository.Add(category);
-            }
+            await _repository.Add(category);
 
             return category;
         }

@@ -17,14 +17,21 @@ namespace Data.Repositories.Categories
 
         public async Task<List<Category>> Get(string parrentId = null)
         {
-            var query = _context.Categories.AsQueryable<Category>();
+            IQueryable<Category> query;
 
-            //TODO: filter (parrentId)
+            if(string.IsNullOrEmpty(parrentId))
+            {
+                query = _context.Categories.AsQueryable<Category>();
+            }
+            else
+            {
+                query = _context.Categories.Where(c => c.ParrentCode == parrentId).AsQueryable<Category>();
+            }
 
             return await query.ToListAsync<Category>();
         }
 
-        public async Task<Category> GetCategory(string code) => await _context.Categories.FindAsync(code);
+        public async Task<Category> GetCategory(string code, string parrentId = null) => await _context.Categories.FindAsync(code);
 
         public async Task Import(List<Category> mappedList)
         {
@@ -53,6 +60,16 @@ namespace Data.Repositories.Categories
 
         public async Task<Category> Add(Category category)
         {
+            var item = _context.Categories.Find(category.Code);
+
+            if(item != null)
+            {
+                _context.Entry<Category>(item).State = EntityState.Detached;
+                await Update(category);
+                
+                return category;
+            }
+            
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
 

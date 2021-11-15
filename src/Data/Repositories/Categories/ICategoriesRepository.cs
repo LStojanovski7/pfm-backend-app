@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Data.Entities;
-using System.Linq;
-using System.IO;
 
 namespace Data.Repositories.Categories
 {
@@ -12,6 +10,6 @@ namespace Data.Repositories.Categories
         Task Import(List<Category> mappedList);
         Task<Category> Update(Category category);
         Task<Category> Add(Category category);
-        Task<Category> GetCategory(string code);
+        Task<Category> GetCategory(string code, string parrentId = null);
     }
 }

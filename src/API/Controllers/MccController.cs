@@ -4,28 +4,23 @@ using System.Text;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Data;
-using Data.Entities;
-using Services.Categories;
+using CsvHelper;
+using CsvHelper.Configuration;
+using Services.MerchantTypes;
 using System.Globalization;
 using System.Linq;
+// using API.CsvMaps;
 
 namespace API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CategoriesController : ControllerBase
+    public class MccController : ControllerBase
     {
-        private readonly ICategoryServices _categoryService;
-        public CategoriesController(ICategoryServices categoryService)
+        private readonly IMerchantTypeService _merchantTypeService;
+        public MccController(IMerchantTypeService merchantTypeService)
         {
-            _categoryService = categoryService;   
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> Get([FromQuery] string parrentId = null)
-        {
-            return Ok(await _categoryService.GetCategories(parrentId));
+            _merchantTypeService = merchantTypeService;   
         }
 
         [HttpPost("import")]
@@ -39,9 +34,9 @@ namespace API.Controllers
                 return BadRequest("The file must be of type: (csv)");
             }
 
-            await _categoryService.Import(file.OpenReadStream());
+            await _merchantTypeService.Import(file.OpenReadStream());
 
-            return Ok("OK Categories imported");
+            return Ok("OK MCC codes are imported");
         }
     }
 }

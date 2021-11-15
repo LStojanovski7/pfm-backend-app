@@ -44,7 +44,7 @@ namespace API.Migrations
                     Amount = table.Column<double>(type: "double precision", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Currency = table.Column<string>(type: "character varying(3)", maxLength: 3, nullable: false),
-                    Mcc = table.Column<int>(type: "integer", nullable: false),
+                    Mcc = table.Column<int>(type: "integer", nullable: true),
                     Kind = table.Column<string>(type: "text", nullable: false),
                     Code = table.Column<string>(type: "text", nullable: true)
                 },

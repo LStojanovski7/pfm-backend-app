@@ -1,4 +1,3 @@
-
 namespace Data.Entities
 {
     public class CategoriesCSV
