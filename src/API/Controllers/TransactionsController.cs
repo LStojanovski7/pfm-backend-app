@@ -42,5 +42,28 @@ namespace API.Controllers
 
             return Ok("Transactions imported");
         }
+
+         [HttpPost("{id}/split")]
+        public ActionResult Split(string id)
+        {
+            if(string.IsNullOrEmpty(id))
+            {
+                return BadRequest();
+            }
+
+            return Ok("OK");
+        }
+
+        [HttpPost("{id}/categorize")]
+        public ActionResult Categorize(string categoryCode)
+        {
+            return Ok();
+        }
+
+        [HttpPost("/auto-categorize")]
+        public ActionResult AutoCategorize()
+        {
+            return Ok();
+        }
     }
 }

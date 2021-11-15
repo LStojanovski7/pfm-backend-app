@@ -14,6 +14,6 @@ namespace Data.Entities
          public int? Mcc { get; set; }
          public TransactionKind Kind { get; set; }
          public string Code { get; set; }
-        //  public Category Category { get; set; }
+         public Category Category { get; set; }
     }
 }
