@@ -54,5 +54,37 @@ namespace Services.Categories
 
            await _repository.Import(categoriesList);
         }
+
+        public async Task<Category> Add(Category category)
+        {
+            var entity = await _repository.GetCategory(category.Code);
+
+            if(entity != null)
+            {
+                await Update(entity);
+            }
+            else
+            {
+                await _repository.Add(category);
+            }
+
+            return category;
+        }
+
+        public async Task<Category> Update(Category category)
+        {
+            var entity = await _repository.GetCategory(category.Code);
+
+            if(entity == null)
+            {
+                throw new KeyNotFoundException("Provided category does not exist");
+            }
+            else
+            {
+                await _repository.Update(category);
+            }
+
+            return category;
+        }
     }
 }

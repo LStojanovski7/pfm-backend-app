@@ -24,11 +24,39 @@ namespace Data.Repositories.Categories
             return await query.ToListAsync<Category>();
         }
 
+        public async Task<Category> GetCategory(string code) => await _context.Categories.FindAsync(code);
+
         public async Task Import(List<Category> mappedList)
         {
-            //TODO: IF exists then update
-            _context.Categories.AddRange(mappedList);
+            foreach(var item in mappedList)
+            {
+                var entity =  await _context.Categories.FindAsync(item.Code);
+
+                if(entity != null)
+                {
+                    await Update(item);
+                }
+                else
+                {
+                    await Add(item);
+                }
+            }
+        }
+
+        public async Task<Category> Update(Category category)
+        {
+            _context.Categories.Update(category);
             await _context.SaveChangesAsync();
+
+            return category;
+        }
+
+        public async Task<Category> Add(Category category)
+        {
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
+
+            return category;
         }
     }
 }

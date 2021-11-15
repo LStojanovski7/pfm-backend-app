@@ -9,5 +9,7 @@ namespace Services.Categories
     {
         Task<List<Category>> GetCategories(string parrentId = null);
         Task ImportCategories(Stream stream);
+        Task<Category> Add(Category category);
+        Task<Category> Update(Category category);
     }
 }

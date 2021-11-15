@@ -10,5 +10,8 @@ namespace Data.Repositories.Categories
     {
         Task<List<Category>> Get(string parrentId = null);
         Task Import(List<Category> mappedList);
+        Task<Category> Update(Category category);
+        Task<Category> Add(Category category);
+        Task<Category> GetCategory(string code);
     }
 }
