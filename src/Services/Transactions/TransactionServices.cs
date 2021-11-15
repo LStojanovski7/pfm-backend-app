@@ -10,6 +10,7 @@ using Data.Entities.Enums;
 using Services.CsvMaps;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Data.Entities.Contracts;
 
 namespace Services.Transactions
 {
@@ -20,6 +21,13 @@ namespace Services.Transactions
         public TransactionServices(ITransactionsRepository repository)
         {
             _repository = repository;
+        }
+
+        public async Task<PageSortedList<Transaction>> GetProducts(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
+        {
+            var result = await _repository.Get(page, pageSize, sortBy, sortOrder); 
+
+            return result;
         }
 
         public async Task<Transaction> Add(Transaction transaction)
