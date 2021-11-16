@@ -46,24 +46,35 @@ namespace API.Migrations
                     Currency = table.Column<string>(type: "character varying(3)", maxLength: 3, nullable: false),
                     Mcc = table.Column<int>(type: "integer", nullable: true),
                     Kind = table.Column<string>(type: "text", nullable: false),
-                    Code = table.Column<string>(type: "text", nullable: true)
+                    CategoryCode = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_transactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_transactions_categories_CategoryCode",
+                        column: x => x.CategoryCode,
+                        principalTable: "categories",
+                        principalColumn: "Code",
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_transactions_CategoryCode",
+                table: "transactions",
+                column: "CategoryCode");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "categories");
-
-            migrationBuilder.DropTable(
                 name: "merchantTypes");
 
             migrationBuilder.DropTable(
                 name: "transactions");
+
+            migrationBuilder.DropTable(
+                name: "categories");
         }
     }
 }

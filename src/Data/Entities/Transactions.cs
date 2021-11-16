@@ -13,7 +13,8 @@ namespace Data.Entities
          public string Currency { get; set; }
          public int? Mcc { get; set; }
          public TransactionKind Kind { get; set; }
-         public string Code { get; set; }
+         //Foreign key references Category
+         public string CategoryCode { get; set; }
          public Category Category { get; set; }
     }
 }

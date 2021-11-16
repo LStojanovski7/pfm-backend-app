@@ -64,7 +64,7 @@ namespace Data
         public static void SeedData()
         {
             //TODO: seed merchant types
-            string path = @"../../files/mmc_codes.csv";
+            // string path = @"../../files/mmc_codes.csv";
 
             
         }

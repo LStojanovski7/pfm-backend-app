@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211115182029_initial")]
+    [Migration("20211116123657_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,7 +65,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Code")
+                    b.Property<string>("CategoryCode")
                         .HasColumnType("text");
 
                     b.Property<string>("Currency")
@@ -93,7 +93,23 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryCode");
+
                     b.ToTable("transactions");
+                });
+
+            modelBuilder.Entity("Data.Entities.Transaction", b =>
+                {
+                    b.HasOne("Data.Entities.Category", "Category")
+                        .WithMany("Transactions")
+                        .HasForeignKey("CategoryCode");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Data.Entities.Category", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

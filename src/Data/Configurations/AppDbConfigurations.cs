@@ -11,30 +11,26 @@ namespace Data.Configurations
             builder.ToTable("transactions");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id);//.IsRequired()
-                                       //.Metadata
-                                       //.SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
-                                       
+            builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.BeneficiaryName).IsRequired();
-
             builder.Property(x => x.Direction).HasConversion<string>()
                                               .HasMaxLength(1)
                                               .IsRequired();
 
             builder.Property(x => x.Amount).IsRequired();
             builder.Property(x => x.Description);
-
             builder.Property(x => x.Currency).HasConversion<string>()
                                              .HasMaxLength(3)
                                              .IsRequired();
 
             builder.Property(x => x.Mcc).HasConversion<int>();
-            
             builder.Property(x => x.Kind).HasConversion<string>()
                                          .IsRequired();
-            
-            builder.Property(x => x.Code);//.Metadata
-                                         //.SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
+
+            builder.Property(x => x.CategoryCode);                                         
+            builder.HasOne(x => x.Category)
+                    .WithMany(x => x.Transactions)
+                    .HasForeignKey(x => x.CategoryCode);
         }
     }
 
@@ -48,6 +44,11 @@ namespace Data.Configurations
             builder.Property(x => x.Code).IsRequired();
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.ParrentCode);
+            // builder.HasMany(x => x.Transactions)
+            //        .WithOne();
+
+            // builder.Navigation(x => x.Transactions)
+            //        .UsePropertyAccessMode(PropertyAccessMode.Property);
         }
     }
 
