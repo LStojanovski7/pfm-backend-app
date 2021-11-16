@@ -8,6 +8,7 @@ namespace Data
     {
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<MerchantType> MerchantTypes { get; set; }
 
         public AppDbContext()
         {

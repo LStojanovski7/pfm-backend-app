@@ -61,14 +61,6 @@ namespace Data
             return (IOrderedQueryable<TSource>)result;
         }
 
-        public static void SeedData()
-        {
-            //TODO: seed merchant types
-            // string path = @"../../files/mmc_codes.csv";
-
-            
-        }
-
         private static string Cappitalize(string s)
         {
             return char.ToUpper(s[0]) + s.Substring(1);
