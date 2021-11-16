@@ -30,7 +30,8 @@ namespace Data.Configurations
             builder.Property(x => x.CategoryCode);                                         
             builder.HasOne(x => x.Category)
                     .WithMany(x => x.Transactions)
-                    .HasForeignKey(x => x.CategoryCode);
+                    .HasForeignKey(x => x.CategoryCode)
+                    .OnDelete(DeleteBehavior.SetNull);
         }
     }
 
@@ -42,12 +43,13 @@ namespace Data.Configurations
 
             builder.HasKey(x => x.Code);
             builder.Property(x => x.Code).IsRequired();
-            builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.ParrentCode);
+            builder.Property(x => x.Name).IsRequired();
 
             builder.HasOne(x => x.ParrentCategory)
                    .WithMany(x => x.SubCategories)
-                   .HasForeignKey(x => x.ParrentCode);
+                   .HasForeignKey(x => x.ParrentCode)
+                   .OnDelete(DeleteBehavior.SetNull);
                    
             // builder.HasMany(x => x.Transactions)
             //        .WithOne();

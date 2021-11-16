@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\Desktop\\Testing rel\\src\\API\\API.csproj": {}
+    "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\Desktop\\Testing rel\\src\\API\\API.csproj": {
+    "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\API\\API.csproj",
+        "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\API\\obj\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,11 +28,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Data\\Data.csproj": {
-                "projectPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Data\\Data.csproj"
+              "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Data\\Data.csproj"
               },
-              "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Services\\Services.csproj": {
-                "projectPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Services\\Services.csproj"
+              "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Services\\Services.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Services\\Services.csproj"
               }
             }
           }
@@ -92,14 +92,14 @@
         }
       }
     },
-    "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Data\\Data.csproj": {
+    "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Data\\Data.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Data\\Data.csproj",
+        "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Data\\Data.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Data\\obj\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -162,14 +162,14 @@
         }
       }
     },
-    "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Services\\Services.csproj": {
+    "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Services\\Services.csproj",
+        "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Services\\obj\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -186,8 +186,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Data\\Data.csproj": {
-                "projectPath": "C:\\Users\\PC\\Desktop\\Testing rel\\src\\Data\\Data.csproj"
+              "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\Data\\Data.csproj"
               }
             }
           }
