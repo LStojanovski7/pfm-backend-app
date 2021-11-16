@@ -18,6 +18,12 @@ namespace API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_categories", x => x.Code);
+                    table.ForeignKey(
+                        name: "FK_categories_categories_ParrentCode",
+                        column: x => x.ParrentCode,
+                        principalTable: "categories",
+                        principalColumn: "Code",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,6 +64,11 @@ namespace API.Migrations
                         principalColumn: "Code",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_categories_ParrentCode",
+                table: "categories",
+                column: "ParrentCode");
 
             migrationBuilder.CreateIndex(
                 name: "IX_transactions_CategoryCode",

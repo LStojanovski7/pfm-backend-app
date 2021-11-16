@@ -8,6 +8,8 @@ namespace Data.Entities
          public string Code { get; set; }
          public string Name { get; set; }
          public string ParrentCode { get; set; }
-         public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual Category ParrentCategory { get; set; }
+        public virtual ICollection<Category> SubCategories { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

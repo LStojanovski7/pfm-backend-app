@@ -19,7 +19,6 @@ using Data.Repositories.Categories;
 using Data.Repositories.Transactions;
 using Services.Categories;
 using Services.Transactions;
-using Services.MerchantTypes;
 using Npgsql;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
@@ -75,7 +74,6 @@ namespace src
             //services
             services.AddScoped<ICategoryServices, CategoryServices>();
             services.AddScoped<ITransactionServices, TransactionServices>();
-            services.AddScoped<IMerchantTypeService, MerchantTypeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,7 +103,7 @@ namespace src
             });
 
             //Import MerchantCodes
-            
+            AppDbExtension.SeedData();
         }
 
         private string CreateConnectionString()

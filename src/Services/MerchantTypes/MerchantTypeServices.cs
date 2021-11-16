@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
 using Data.Entities;
-using Data.Entities.CSVObjects;
 using Data.Repositories;
 using Services.CsvMaps;
 
@@ -19,7 +18,7 @@ namespace Services.MerchantTypes
         {
             _repository = repository;
         }
-        public async Task Import(Stream stream, FileInfo file = null)
+        public async Task Import(Stream stream)
         {
             if (stream is null)
             {

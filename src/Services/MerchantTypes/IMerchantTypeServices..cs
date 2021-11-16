@@ -5,6 +5,6 @@ namespace Services.MerchantTypes
 {
     public interface IMerchantTypeService
     {
-        Task Import(Stream stream, FileInfo file = null);
+        Task Import(Stream stream);
     }
 }

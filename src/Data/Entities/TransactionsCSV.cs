@@ -1,5 +1,6 @@
-namespace Data.Entities.CSVObjects
+using Data.Entities.Enums;
 
+namespace Data.Entities
 {
     public class TransactionCSV
     {

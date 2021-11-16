@@ -11,7 +11,6 @@ using Services.CsvMaps;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Data.Entities.Contracts;
-using Data.Entities.CSVObjects;
 
 namespace Services.Transactions
 {

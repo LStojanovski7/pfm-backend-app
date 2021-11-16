@@ -44,6 +44,11 @@ namespace Data.Configurations
             builder.Property(x => x.Code).IsRequired();
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.ParrentCode);
+
+            builder.HasOne(x => x.ParrentCategory)
+                   .WithMany(x => x.SubCategories)
+                   .HasForeignKey(x => x.ParrentCode);
+                   
             // builder.HasMany(x => x.Transactions)
             //        .WithOne();
 

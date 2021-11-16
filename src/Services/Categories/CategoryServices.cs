@@ -7,7 +7,6 @@ using CsvHelper;
 using System.Globalization;
 using Services.CsvMaps;
 using System.Linq;
-using Data.Entities.CSVObjects;
 
 namespace Services.Categories
 {
