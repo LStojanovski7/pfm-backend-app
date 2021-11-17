@@ -2,15 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using Data;
 using API.Models;
 using System.IO;
-using CsvHelper;
 using System.Threading.Tasks;
-using System.Text;
 using Services.Transactions;
 using Data.Entities.Enums;
 using Data.Entities.Contracts;
+using System.Linq;
+using System;
 
 namespace API.Controllers
 {
@@ -25,12 +24,32 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrder sortOrder)
+        public async Task<IActionResult> GetProducts([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrder sortOrder,  [FromQuery] string dateFrom = null, [FromQuery] string dateTo = null)
         {
             page ??= 1;
             pageSize ??= 10;
-            
-            return Ok(await _transactionService.GetProducts(page.Value, pageSize.Value, sortBy, sortOrder));
+
+            var result = await _transactionService.GetProducts(page.Value, pageSize.Value, sortBy, sortOrder);
+
+            var dateF = new DateTime();
+            var dateT = new DateTime();
+
+            if(!string.IsNullOrEmpty(dateFrom))
+            {
+                dateF = DateTime.Parse(dateFrom);
+            }
+
+            if(!string.IsNullOrEmpty(dateTo))
+            {
+                dateT = DateTime.Parse(dateTo);
+            }
+
+            var items = result.Items.Where(p => DateTime.Parse(p.Date) > dateF && DateTime.Parse(p.Date) < dateT);
+
+            result.Items = (List<Data.Entities.Transaction>)items;
+
+            // return Ok(await _transactionService.GetProducts(page.Value, pageSize.Value, sortBy, sortOrder));
+            return Ok(result);
         }
 
         [HttpPost("import")]

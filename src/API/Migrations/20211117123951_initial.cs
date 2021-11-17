@@ -12,8 +12,8 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Code = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    ParrentCode = table.Column<string>(type: "text", nullable: true)
+                    ParrentCode = table.Column<string>(type: "text", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -23,7 +23,7 @@ namespace API.Migrations
                         column: x => x.ParrentCode,
                         principalTable: "categories",
                         principalColumn: "Code",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,7 +62,7 @@ namespace API.Migrations
                         column: x => x.CategoryCode,
                         principalTable: "categories",
                         principalColumn: "Code",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(

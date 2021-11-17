@@ -102,7 +102,8 @@ namespace API.Migrations
                 {
                     b.HasOne("Data.Entities.Category", "ParrentCategory")
                         .WithMany("SubCategories")
-                        .HasForeignKey("ParrentCode");
+                        .HasForeignKey("ParrentCode")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("ParrentCategory");
                 });
@@ -111,7 +112,8 @@ namespace API.Migrations
                 {
                     b.HasOne("Data.Entities.Category", "Category")
                         .WithMany("Transactions")
-                        .HasForeignKey("CategoryCode");
+                        .HasForeignKey("CategoryCode")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Category");
                 });

@@ -30,6 +30,11 @@ namespace Services.Categories
             return await _repository.Get(parrentId);
         }
 
+        public async Task<Category> GetCategory(string code)
+        {
+            return await _repository.GetCategory(code);
+        }
+
         public async Task Import(Stream stream)
         {
             List<CategoriesCSV> result = new List<CategoriesCSV>();
@@ -47,7 +52,16 @@ namespace Services.Categories
                 Category category = new Category();
 
                 category.Code = item.Code;
-                category.ParrentCode = item.ParentCode;
+                
+                if(string.IsNullOrEmpty(item.ParentCode))
+                {
+                    category.ParrentCode = null;
+                }
+                else
+                {
+                    category.ParrentCode = item.ParentCode;
+                }
+
                 category.Name = item.Name;
 
                 await _repository.Add(category);

@@ -49,13 +49,9 @@ namespace Data.Configurations
             builder.HasOne(x => x.ParrentCategory)
                    .WithMany(x => x.SubCategories)
                    .HasForeignKey(x => x.ParrentCode)
+                   .IsRequired(false)
                    .OnDelete(DeleteBehavior.SetNull);
-                   
-            // builder.HasMany(x => x.Transactions)
-            //        .WithOne();
-
-            // builder.Navigation(x => x.Transactions)
-            //        .UsePropertyAccessMode(PropertyAccessMode.Property);
+            
         }
     }
 

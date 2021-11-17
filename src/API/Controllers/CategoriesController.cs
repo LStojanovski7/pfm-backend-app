@@ -9,6 +9,7 @@ using Data.Entities;
 using Services.Categories;
 using System.Globalization;
 using System.Linq;
+using AutoMapper;
 
 namespace API.Controllers
 {
@@ -17,15 +18,28 @@ namespace API.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryServices _categoryService;
-        public CategoriesController(ICategoryServices categoryService)
+        private readonly IMapper _mapper;
+        public CategoriesController(ICategoryServices categoryService, IMapper mapper)
         {
             _categoryService = categoryService;   
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult> Get([FromQuery] string parrentId = null)
         {
-            return Ok(await _categoryService.GetCategories(parrentId));
+            List<CategoryModel> categoriesList = new List<CategoryModel>();
+
+            var result = await _categoryService.GetCategories(parrentId);
+
+            foreach(var item in result)
+            {
+                CategoryModel category = new CategoryModel();
+
+                categoriesList.Add(_mapper.Map(item, category));
+            }
+
+            return Ok(categoriesList);
         }
 
         [HttpPost("import")]

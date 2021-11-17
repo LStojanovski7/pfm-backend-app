@@ -21,6 +21,8 @@ using Services.Categories;
 using Services.Transactions;
 using Npgsql;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using AutoMapper;
+using System.Reflection;
 
 namespace src
 {
@@ -49,7 +51,11 @@ namespace src
                 // options.AllowSynchronousIO = true;
             });
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => 
+
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+            
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -66,6 +72,8 @@ namespace src
                 options.UseNpgsql(npgsqlOptionsAction: x => x.MigrationsAssembly("API"));
             });
 
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             //repos
             services.AddScoped<IRepository<Category>, Repository<Category>>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
@@ -74,6 +82,7 @@ namespace src
             //services
             services.AddScoped<ICategoryServices, CategoryServices>();
             services.AddScoped<ITransactionServices, TransactionServices>();
+            // services.AddScoped<IMapper, Mapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -31,7 +31,7 @@ namespace Data.Repositories.Categories
             return await query.ToListAsync<Category>();
         }
 
-        public async Task<Category> GetCategory(string code, string parrentId = null) => await _context.Categories.FindAsync(code);
+        public async Task<Category> GetCategory(string code) => await _context.Categories.FindAsync(code);
 
         public async Task Import(List<Category> mappedList)
         {
