@@ -24,12 +24,12 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrder sortOrder,  [FromQuery] string dateFrom = null, [FromQuery] string dateTo = null)
+        public async Task<IActionResult> GetTransactions([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrder sortOrder,  [FromQuery] string dateFrom = null, [FromQuery] string dateTo = null)
         {
             page ??= 1;
             pageSize ??= 10;
 
-            var result = await _transactionService.GetProducts(page.Value, pageSize.Value, sortBy, sortOrder);
+            var result = await _transactionService.GetTransactions(page.Value, pageSize.Value, sortBy, sortOrder);
 
             var dateF = new DateTime();
             var dateT = new DateTime();
@@ -46,9 +46,9 @@ namespace API.Controllers
 
             var items = result.Items.Where(p => DateTime.Parse(p.Date) > dateF && DateTime.Parse(p.Date) < dateT);
 
-            result.Items = (List<Data.Entities.Transaction>)items;
+            // result.Items = (List<Data.Entities.Transaction>)items;
 
-            // return Ok(await _transactionService.GetProducts(page.Value, pageSize.Value, sortBy, sortOrder));
+            // return Ok(await _transactionService.GetTransactions(page.Value, pageSize.Value, sortBy, sortOrder));
             return Ok(result);
         }
 

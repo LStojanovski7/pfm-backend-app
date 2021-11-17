@@ -9,7 +9,7 @@ namespace Services.Transactions
 {
     public interface ITransactionServices
     {
-        Task<PageSortedList<Transaction>> GetProducts(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc);
+        Task<PageSortedList<Transaction>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc);
         Task Import(Stream stream);
         Task<Transaction> Add(Transaction transaction);
         Task<Transaction> Update(Transaction transaction);

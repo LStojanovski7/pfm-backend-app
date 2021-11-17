@@ -23,7 +23,7 @@ namespace Services.Transactions
             _repository = repository;
         }
 
-        public async Task<PageSortedList<Transaction>> GetProducts(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
+        public async Task<PageSortedList<Transaction>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
         {
             var result = await _repository.Get(page, pageSize, sortBy, sortOrder); 
 
