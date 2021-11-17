@@ -46,9 +46,6 @@ namespace API.Controllers
 
             var items = result.Items.Where(p => DateTime.Parse(p.Date) > dateF && DateTime.Parse(p.Date) < dateT);
 
-            // result.Items = (List<Data.Entities.Transaction>)items;
-
-            // return Ok(await _transactionService.GetTransactions(page.Value, pageSize.Value, sortBy, sortOrder));
             return Ok(result);
         }
 

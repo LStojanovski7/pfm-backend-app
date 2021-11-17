@@ -51,7 +51,6 @@ namespace Data.Configurations
                    .HasForeignKey(x => x.ParrentCode)
                    .IsRequired(false)
                    .OnDelete(DeleteBehavior.SetNull);
-            
         }
     }
 

@@ -27,3 +27,4 @@ C:\Users\PC\Desktop\Testing rel\src\Services\obj\Debug\net5.0\Services.csproj.Co
 C:\Users\PC\Desktop\Testing rel\src\Services\obj\Debug\net5.0\Services.dll
 C:\Users\PC\Desktop\Testing rel\src\Services\obj\Debug\net5.0\ref\Services.dll
 C:\Users\PC\Desktop\Testing rel\src\Services\obj\Debug\net5.0\Services.pdb
+C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\Services.csproj.CopyComplete

@@ -15,6 +15,6 @@ namespace Data.Entities
          public TransactionKind Kind { get; set; }
          //Foreign key references Category
          public string CategoryCode { get; set; }
-         public Category Category { get; set; }
+         public virtual Category Category { get; set; }
     }
 }
