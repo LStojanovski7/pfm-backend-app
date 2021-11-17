@@ -90,3 +90,5 @@ C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\AutoMapper.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Castle.Core.dll
+C:\Users\PC\Desktop\pfm-backend-app\src\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Proxies.dll

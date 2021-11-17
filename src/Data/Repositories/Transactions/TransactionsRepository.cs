@@ -19,7 +19,8 @@ namespace Data.Repositories.Transactions
 
         public async Task<PageSortedList<Transaction>> Get(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
         {
-            var query = _context.Transactions.Include(x => x.Category).AsQueryable();
+            // var query = _context.Transactions.Include(x => x.Category).AsQueryable();
+            var query = _context.Transactions.AsQueryable();
 
             var total = await query.CountAsync();
 
