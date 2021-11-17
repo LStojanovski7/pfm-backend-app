@@ -12,7 +12,6 @@ C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\ref\Services.d
 C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\Services.pdb
 C:\Users\PC\Desktop\pfm-backend-app\src\Services\bin\Debug\net5.0\Data.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\Services\bin\Debug\net5.0\Data.pdb
-C:\Users\PC\Desktop\pfm-backend-app\src\Services\obj\Debug\net5.0\Services.csproj.CopyComplete
 C:\Users\PC\Desktop\Testing rel\src\Services\bin\Debug\net5.0\Services.deps.json
 C:\Users\PC\Desktop\Testing rel\src\Services\bin\Debug\net5.0\Services.dll
 C:\Users\PC\Desktop\Testing rel\src\Services\bin\Debug\net5.0\ref\Services.dll

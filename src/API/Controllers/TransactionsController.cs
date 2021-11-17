@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using API.Models;
-using System.IO;
+using API.Commands;
 using System.Threading.Tasks;
 using Services.Transactions;
 using Data.Entities.Enums;
@@ -73,10 +73,19 @@ namespace API.Controllers
             return Ok("OK");
         }
 
-        [HttpPost("{id}/categorize")]
-        public ActionResult Categorize(string categoryCode)
+        // [HttpPost("{id}/categorize")]
+        [HttpPost]
+        [Route("{id}/categorize")]
+        public async Task<ActionResult> Categorize([FromRoute] string id, [FromBody] Categorize command)
         {
-            return Ok();
+            var result = await _transactionService.Categorize(id, command.catcode); 
+
+            if(result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok("OK - Transaction categorized");
         }
 
         [HttpPost("/auto-categorize")]
