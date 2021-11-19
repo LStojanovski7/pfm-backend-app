@@ -11,5 +11,6 @@ namespace Data.Entities
         public virtual Category ParrentCategory { get; set; }
         public virtual ICollection<Category> SubCategories { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual ICollection<TransactionSplit> TransactionSplits { get; set; }
     }
 }

@@ -38,21 +38,6 @@ namespace API.Migrations
                     b.ToTable("categories");
                 });
 
-            modelBuilder.Entity("Data.Entities.MerchantType", b =>
-                {
-                    b.Property<int>("Code")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Type")
-                        .HasColumnType("text");
-
-                    b.HasKey("Code");
-
-                    b.ToTable("merchantTypes");
-                });
-
             modelBuilder.Entity("Data.Entities.Transaction", b =>
                 {
                     b.Property<string>("Id")
@@ -98,6 +83,31 @@ namespace API.Migrations
                     b.ToTable("transactions");
                 });
 
+            modelBuilder.Entity("Data.Entities.TransactionSplit", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("CategoryCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TransactionId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryCode");
+
+                    b.HasIndex("TransactionId");
+
+                    b.ToTable("splits");
+                });
+
             modelBuilder.Entity("Data.Entities.Category", b =>
                 {
                     b.HasOne("Data.Entities.Category", "ParrentCategory")
@@ -118,11 +128,36 @@ namespace API.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Data.Entities.TransactionSplit", b =>
+                {
+                    b.HasOne("Data.Entities.Category", "Category")
+                        .WithMany("TransactionSplits")
+                        .HasForeignKey("CategoryCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Entities.Transaction", "Transaction")
+                        .WithMany("Splits")
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Transaction");
+                });
+
             modelBuilder.Entity("Data.Entities.Category", b =>
                 {
                     b.Navigation("SubCategories");
 
                     b.Navigation("Transactions");
+
+                    b.Navigation("TransactionSplits");
+                });
+
+            modelBuilder.Entity("Data.Entities.Transaction", b =>
+                {
+                    b.Navigation("Splits");
                 });
 #pragma warning restore 612, 618
         }

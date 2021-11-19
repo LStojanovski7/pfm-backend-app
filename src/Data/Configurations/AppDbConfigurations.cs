@@ -27,7 +27,8 @@ namespace Data.Configurations
             builder.Property(x => x.Kind).HasConversion<string>()
                                          .IsRequired();
 
-            builder.Property(x => x.CategoryCode);                                         
+            builder.Property(x => x.CategoryCode);   
+
             builder.HasOne(x => x.Category)
                     .WithMany(x => x.Transactions)
                     .HasForeignKey(x => x.CategoryCode)
@@ -54,14 +55,26 @@ namespace Data.Configurations
         }
     }
 
-    public class MerchantTypeConfiguration : IEntityTypeConfiguration<MerchantType>
+    public class SplitsConfiguration : IEntityTypeConfiguration<TransactionSplit>
     {
-        public void Configure(EntityTypeBuilder<MerchantType> builder)
+        public void Configure(EntityTypeBuilder<TransactionSplit> builder)
         {
-            builder.ToTable("merchantTypes");
+            builder.ToTable("splits");
 
-            builder.HasKey(x => x.Code);
-            builder.Property(x => x.Code).IsRequired();
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).ValueGeneratedOnAdd();
+            builder.Property(x => x.Amount).IsRequired();
+            builder.Property(x => x.CategoryCode).IsRequired();
+
+            builder.HasOne(x => x.Transaction)
+                   .WithMany(b => b.Splits)
+                   .HasForeignKey(x => x.TransactionId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.Category)
+                   .WithMany(b => b.TransactionSplits)
+                   .HasForeignKey(x => x.CategoryCode)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

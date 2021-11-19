@@ -75,7 +75,6 @@ namespace src
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             //repos
-            services.AddScoped<IRepository<Category>, Repository<Category>>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<ITransactionsRepository, TransactionsRepository>();
 
@@ -112,9 +111,6 @@ namespace src
             {
                 endpoints.MapControllers();
             });
-
-            //Import MerchantCodes
-            AppDbExtension.SeedData();
         }
 
         private string CreateConnectionString()

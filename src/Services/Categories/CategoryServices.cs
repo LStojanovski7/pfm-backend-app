@@ -13,7 +13,6 @@ namespace Services.Categories
     public class CategoryServices : ICategoryServices
     {
         private readonly ICategoriesRepository _repository;
-        // private readonly IRepository<Category> _repository;
         public CategoryServices(ICategoriesRepository repository)
         {
             _repository = repository;
@@ -30,6 +29,23 @@ namespace Services.Categories
             return await _repository.Get(parrentId);
         }
 
+        // public async Task<Groups> SpendingByCategory(string catcode, string startDate, string endDate, string direction)
+        // {
+        //     var query = await _repository.Get();
+
+        //     // var category = await _repository.GetCategory(catcode);
+
+        //     // IEnumerable<Category> result;
+
+        //     // if(category == null)
+        //     // {
+                
+        //     // }
+
+        //     var res = query.Select
+
+
+        // }
         public async Task<Category> GetCategory(string code)
         {
             return await _repository.GetCategory(code);

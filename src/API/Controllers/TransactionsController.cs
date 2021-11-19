@@ -10,6 +10,8 @@ using Data.Entities.Enums;
 using Data.Entities.Contracts;
 using System.Linq;
 using System;
+using Data.Entities;
+using Data.Commands;
 
 namespace API.Controllers
 {
@@ -31,20 +33,14 @@ namespace API.Controllers
 
             var result = await _transactionService.GetTransactions(page.Value, pageSize.Value, sortBy, sortOrder);
 
-            var dateF = new DateTime();
-            var dateT = new DateTime();
+            List<TransactionModel> items = new List<TransactionModel>();
 
-            if(!string.IsNullOrEmpty(dateFrom))
-            {
-                dateF = DateTime.Parse(dateFrom);
-            }
+            DateTime dateF = DateTime.Parse(dateFrom);
+            DateTime dateT = DateTime.Parse(dateTo);
 
-            if(!string.IsNullOrEmpty(dateTo))
-            {
-                dateT = DateTime.Parse(dateTo);
-            }
+            items = result.Items.Where(t => DateTime.Parse(t.Date) >= dateF && DateTime.Parse(t.Date) <= dateT).ToList();
 
-            var items = result.Items.Where(p => DateTime.Parse(p.Date) > dateF && DateTime.Parse(p.Date) < dateT);
+            result.Items = items;
 
             return Ok(result);
         }
@@ -60,12 +56,14 @@ namespace API.Controllers
         }
 
          [HttpPost("{id}/split")]
-        public ActionResult Split(string id)
+        public async Task<ActionResult> Split([FromRoute] string id, [FromBody] SplitTransactionCommand command)
         {
             if(string.IsNullOrEmpty(id))
             {
                 return BadRequest();
             }
+
+            await _transactionService.Split(id, command);
 
             return Ok("OK");
         }

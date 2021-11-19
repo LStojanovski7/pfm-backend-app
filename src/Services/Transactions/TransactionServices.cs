@@ -11,6 +11,7 @@ using Services.CsvMaps;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Data.Entities.Contracts;
+using Data.Commands;
 using Services.Categories;
 
 namespace Services.Transactions
@@ -26,7 +27,7 @@ namespace Services.Transactions
             _categoryService = categoryService;
         }
 
-        public async Task<PageSortedList<Transaction>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
+        public async Task<PageSortedList<TransactionModel>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
         {
             var result = await _repository.Get(page, pageSize, sortBy, sortOrder); 
 
@@ -71,7 +72,6 @@ namespace Services.Transactions
                 result = csvReader.GetRecords<TransactionCSV>().ToList<TransactionCSV>();
             }
 
-            //Automapper needed
             //TODO: validations
 
             foreach(var item in result)
@@ -82,10 +82,9 @@ namespace Services.Transactions
                 transaction.BeneficiaryName = item.BeneficiaryName;
                 transaction.Date = item.Date;
                 transaction.Direction = Enum.Parse<Direction>(item.Direction);
-                //TEMPORARY SOLUTION
-                transaction.Amount = ConvertToNumber(item.Amount);
+                transaction.Amount = Double.Parse(item.Amount);
                 transaction.Description = item.Description;
-                transaction.Currency = item.Currency.Trim();
+                transaction.Currency = item.Currency;
 
                 int number;
 
@@ -124,13 +123,23 @@ namespace Services.Transactions
             return transaction;
         }
 
-        private double ConvertToNumber(string amount)
+        public async Task Split(string id, SplitTransactionCommand command)
         {
-            amount = amount.Trim();
+            var transaction = await _repository.GetTransaction(id);
+            // var category = await _categoryService.GetCategory(catcode);
 
-            var output = double.Parse(amount.Replace("€", ""));
+            foreach(var item in command.Splits)
+            {
+                // validate categories
+                TransactionSplit split = new TransactionSplit();
 
-            return output;
+                // AMOUNT validate
+                split.Amount = item.Amount;
+                split.CategoryCode = item.CatCode;
+                split.TransactionId = transaction.Id;
+
+                await _repository.Split(split);
+            }
         }
     }
 }
