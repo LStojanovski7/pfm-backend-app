@@ -64,7 +64,7 @@ namespace API.Controllers
 
             await _transactionService.Split(id, command.Splits);
 
-            return Ok("OK");
+            return Ok("Transaction splitted");
         }
 
         // [HttpPost("{id}/categorize")]
