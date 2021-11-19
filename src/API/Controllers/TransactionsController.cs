@@ -11,7 +11,6 @@ using Data.Entities.Contracts;
 using System.Linq;
 using System;
 using Data.Entities;
-using Data.Commands;
 
 namespace API.Controllers
 {
@@ -26,7 +25,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTransactions([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrder sortOrder,  [FromQuery] string dateFrom = null, [FromQuery] string dateTo = null)
+        public async Task<IActionResult> GetTransactions([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrder sortOrder, [FromQuery] string dateFrom = null, [FromQuery] string dateTo = null)
         {
             page ??= 1;
             pageSize ??= 10;
@@ -55,15 +54,15 @@ namespace API.Controllers
             return Ok("Transactions imported");
         }
 
-         [HttpPost("{id}/split")]
+        [HttpPost("{id}/split")]
         public async Task<ActionResult> Split([FromRoute] string id, [FromBody] SplitTransactionCommand command)
         {
-            if(string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id) || command == null)
             {
                 return BadRequest();
             }
 
-            await _transactionService.Split(id, command);
+            await _transactionService.Split(id, command.Splits);
 
             return Ok("OK");
         }
@@ -71,11 +70,11 @@ namespace API.Controllers
         // [HttpPost("{id}/categorize")]
         [HttpPost]
         [Route("{id}/categorize")]
-        public async Task<ActionResult> Categorize([FromRoute] string id, [FromBody] Categorize command)
+        public async Task<ActionResult> Categorize([FromRoute] string id, [FromBody] CategorizeCommand command)
         {
-            var result = await _transactionService.Categorize(id, command.catcode); 
+            var result = await _transactionService.Categorize(id, command.catcode);
 
-            if(result == null)
+            if (result == null)
             {
                 return NotFound();
             }

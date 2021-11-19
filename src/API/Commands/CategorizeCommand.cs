@@ -1,6 +1,6 @@
 namespace API.Commands
 {
-    public class Split
+    public class CategorizeCommand
     {
         public string catcode { get; set; }
     }

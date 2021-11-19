@@ -13,7 +13,6 @@ namespace Data.Repositories.Transactions
     public class TransactionsRepository : ITransactionsRepository
     {
         private readonly AppDbContext _context;
-
         public TransactionsRepository(AppDbContext context)
         {
             _context = context;
@@ -110,7 +109,6 @@ namespace Data.Repositories.Transactions
 
         public async Task Split(TransactionSplit split)
         {
-            // _context.Entry<TransactionSplit>(split).State = EntityState.Detached;
             await _context.Splits.AddAsync(split);
             await _context.SaveChangesAsync();
         }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Data.Entities;
 
-namespace Data.Commands
+namespace API.Commands
 {
     public class SplitTransactionCommand
     {

@@ -11,7 +11,6 @@ using Services.CsvMaps;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Data.Entities.Contracts;
-using Data.Commands;
 using Services.Categories;
 
 namespace Services.Transactions
@@ -123,23 +122,38 @@ namespace Services.Transactions
             return transaction;
         }
 
-        public async Task Split(string id, SplitTransactionCommand command)
+        public async Task<Transaction> Split(string id, List<SingleCategorySplit> splits)
         {
             var transaction = await _repository.GetTransaction(id);
-            // var category = await _categoryService.GetCategory(catcode);
+            
+            double totalAmount = transaction.Amount;
 
-            foreach(var item in command.Splits)
+            foreach(var item in splits)
             {
-                // validate categories
+                var category = await _categoryService.GetCategory(item.CatCode);
+
+                if(category == null) continue;
+
                 TransactionSplit split = new TransactionSplit();
 
-                // AMOUNT validate
-                split.Amount = item.Amount;
+                if(totalAmount > 0 && item.Amount <= totalAmount)
+                {
+                    split.Amount = item.Amount;
+                }
+                else
+                {
+                    return null;
+                }
+
                 split.CategoryCode = item.CatCode;
                 split.TransactionId = transaction.Id;
 
+                totalAmount -= item.Amount;
+
                 await _repository.Split(split);
             }
+            
+            return transaction;
         }
     }
 }

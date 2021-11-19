@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Data.Entities;
-using Data.Commands;
 using Data.Entities.Contracts;
 using Data.Entities.Enums;
+using System.Collections.Generic;
 
 namespace Services.Transactions
 {
@@ -15,6 +15,6 @@ namespace Services.Transactions
         Task<Transaction> Categorize(string id, string catcode);
         Task<Transaction> Add(Transaction transaction);
         Task<Transaction> Update(Transaction transaction);
-        Task Split(string id, SplitTransactionCommand command);
+        Task<Transaction> Split(string id, List<SingleCategorySplit> Splits);
     }
 }

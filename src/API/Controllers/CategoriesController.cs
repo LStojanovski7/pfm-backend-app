@@ -11,6 +11,7 @@ using Services.Categories;
 using System.Globalization;
 using System.Linq;
 using AutoMapper;
+using System.Net.Http;
 
 namespace API.Controllers
 {
@@ -50,13 +51,12 @@ namespace API.Controllers
 
             if(file.ContentType != "text/csv")
             {
-                // Return response error
-                return BadRequest("The file must be of type: (csv)");
+               BadRequest("Your request was not constructed properly. Response contains the list of validation errors for each invalid element of your request. To learn more see general guidance on validation");
             }
 
             await _categoryService.Import(file.OpenReadStream());
 
-            return Ok("OK Categories imported");
+            return Ok("Categories imported");
         }
     }
 }
