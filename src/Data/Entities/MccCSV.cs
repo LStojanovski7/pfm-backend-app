@@ -1,5 +1,4 @@
-namespace Data.Entities.CSVObjects
-
+namespace Data.Entities
 {
     public class MccCsv
     {

@@ -1,7 +1,6 @@
 using Data.Entities;
 using CsvHelper.Configuration;
 using System.Globalization;
-using Data.Entities.CSVObjects;
 
 namespace Services.CsvMaps
 {

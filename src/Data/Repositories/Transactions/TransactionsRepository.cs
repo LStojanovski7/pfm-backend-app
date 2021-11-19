@@ -5,19 +5,20 @@ using Data.Entities;
 using Data.Entities.Enums;
 using Data.Entities.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using System.Collections.Generic;
 
 namespace Data.Repositories.Transactions
 {
     public class TransactionsRepository : ITransactionsRepository
     {
-        public readonly AppDbContext _context;
-
+        private readonly AppDbContext _context;
         public TransactionsRepository(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<PageSortedList<Transaction>> Get(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
+        public async Task<PageSortedList<TransactionModel>> Get(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
         {
             var query = _context.Transactions.AsQueryable();
 
@@ -46,7 +47,26 @@ namespace Data.Repositories.Transactions
 
             var items = await query.ToListAsync();
 
-            return new PageSortedList<Transaction>()
+            List<TransactionModel> transactions = new List<TransactionModel>();
+
+            foreach(var item in items)
+            {
+                TransactionModel transaction = new TransactionModel();
+
+                transaction.Id = item.Id;
+                transaction.BeneficiaryName = item.BeneficiaryName;
+                transaction.Date = item.Date;
+                transaction.Direction = item.Direction;
+                transaction.Amount = item.Amount;
+                transaction.Description = item.Description;
+                transaction.Currency = item.Currency;
+                transaction.Mcc = item.Mcc;
+                transaction.Kind = item.Kind;
+
+                transactions.Add(transaction);
+            }
+
+            return new PageSortedList<TransactionModel>()
             {
                 Page = page,
                 PageSize = pageSize,
@@ -54,7 +74,7 @@ namespace Data.Repositories.Transactions
                 SortOrder = sortOrder,
                 TotalCount = total,
                 TotalPages = totalPages == 0 ? 1 : totalPages,
-                Items = items,
+                Items = transactions,
             };
         }
 
@@ -85,6 +105,12 @@ namespace Data.Repositories.Transactions
             await _context.SaveChangesAsync();
 
             return transaction;
+        }
+
+        public async Task Split(TransactionSplit split)
+        {
+            await _context.Splits.AddAsync(split);
+            await _context.SaveChangesAsync();
         }
     }
 }

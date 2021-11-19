@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Data.Entities.Enums;
 
 namespace Data.Entities
@@ -13,8 +14,8 @@ namespace Data.Entities
          public string Currency { get; set; }
          public int? Mcc { get; set; }
          public TransactionKind Kind { get; set; }
-         //Foreign key references Category
          public string CategoryCode { get; set; }
-         public Category Category { get; set; }
+         public virtual Category Category { get; set; }
+         public virtual ICollection<TransactionSplit> Splits { get; set; }
     }
 }

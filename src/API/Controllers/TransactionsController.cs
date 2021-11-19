@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using Data;
 using API.Models;
-using System.IO;
-using CsvHelper;
+using API.Commands;
 using System.Threading.Tasks;
-using System.Text;
 using Services.Transactions;
 using Data.Entities.Enums;
 using Data.Entities.Contracts;
+using System.Linq;
+using System;
+using Data.Entities;
 
 namespace API.Controllers
 {
@@ -25,12 +25,23 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrder sortOrder)
+        public async Task<IActionResult> GetTransactions([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string sortBy, [FromQuery] SortOrder sortOrder, [FromQuery] string dateFrom = null, [FromQuery] string dateTo = null)
         {
             page ??= 1;
             pageSize ??= 10;
-            
-            return Ok(await _transactionService.GetProducts(page.Value, pageSize.Value, sortBy, sortOrder));
+
+            var result = await _transactionService.GetTransactions(page.Value, pageSize.Value, sortBy, sortOrder);
+
+            List<TransactionModel> items = new List<TransactionModel>();
+
+            DateTime dateF = DateTime.Parse(dateFrom);
+            DateTime dateT = DateTime.Parse(dateTo);
+
+            items = result.Items.Where(t => DateTime.Parse(t.Date) >= dateF && DateTime.Parse(t.Date) <= dateT).ToList();
+
+            result.Items = items;
+
+            return Ok(result);
         }
 
         [HttpPost("import")]
@@ -43,21 +54,32 @@ namespace API.Controllers
             return Ok("Transactions imported");
         }
 
-         [HttpPost("{id}/split")]
-        public ActionResult Split(string id)
+        [HttpPost("{id}/split")]
+        public async Task<ActionResult> Split([FromRoute] string id, [FromBody] SplitTransactionCommand command)
         {
-            if(string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id) || command == null)
             {
                 return BadRequest();
             }
 
+            await _transactionService.Split(id, command.Splits);
+
             return Ok("OK");
         }
 
-        [HttpPost("{id}/categorize")]
-        public ActionResult Categorize(string categoryCode)
+        // [HttpPost("{id}/categorize")]
+        [HttpPost]
+        [Route("{id}/categorize")]
+        public async Task<ActionResult> Categorize([FromRoute] string id, [FromBody] CategorizeCommand command)
         {
-            return Ok();
+            var result = await _transactionService.Categorize(id, command.catcode);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok("OK - Transaction categorized");
         }
 
         [HttpPost("/auto-categorize")]

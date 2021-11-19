@@ -11,20 +11,22 @@ using Services.CsvMaps;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Data.Entities.Contracts;
-using Data.Entities.CSVObjects;
+using Services.Categories;
 
 namespace Services.Transactions
 {
     public class TransactionServices : ITransactionServices
     {
         private readonly ITransactionsRepository _repository;
+        private readonly ICategoryServices _categoryService;
 
-        public TransactionServices(ITransactionsRepository repository)
+        public TransactionServices(ITransactionsRepository repository, ICategoryServices categoryService)
         {
             _repository = repository;
+            _categoryService = categoryService;
         }
 
-        public async Task<PageSortedList<Transaction>> GetProducts(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
+        public async Task<PageSortedList<TransactionModel>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
         {
             var result = await _repository.Get(page, pageSize, sortBy, sortOrder); 
 
@@ -69,7 +71,6 @@ namespace Services.Transactions
                 result = csvReader.GetRecords<TransactionCSV>().ToList<TransactionCSV>();
             }
 
-            //Automapper needed
             //TODO: validations
 
             foreach(var item in result)
@@ -80,10 +81,9 @@ namespace Services.Transactions
                 transaction.BeneficiaryName = item.BeneficiaryName;
                 transaction.Date = item.Date;
                 transaction.Direction = Enum.Parse<Direction>(item.Direction);
-                //TEMPORARY SOLUTION
-                transaction.Amount = ConvertToNumber(item.Amount);
+                transaction.Amount = Double.Parse(item.Amount);
                 transaction.Description = item.Description;
-                transaction.Currency = item.Currency.Trim();
+                transaction.Currency = item.Currency;
 
                 int number;
 
@@ -104,13 +104,56 @@ namespace Services.Transactions
             }
         }
 
-        private double ConvertToNumber(string amount)
+        public async Task<Transaction> Categorize(string id, string catcode)
         {
-            amount = amount.Trim();
+            var transaction = await _repository.GetTransaction(id);
+            var category = await _categoryService.GetCategory(catcode);
 
-            var output = double.Parse(amount.Replace("€", ""));
+            if(transaction == null || category == null)
+            {
+                return null;
+            }
 
-            return output;
+            transaction.CategoryCode = category.Code;
+            transaction.Category = category;
+
+            await _repository.Update(transaction);
+
+            return transaction;
+        }
+
+        public async Task<Transaction> Split(string id, List<SingleCategorySplit> splits)
+        {
+            var transaction = await _repository.GetTransaction(id);
+            
+            double totalAmount = transaction.Amount;
+
+            foreach(var item in splits)
+            {
+                var category = await _categoryService.GetCategory(item.CatCode);
+
+                if(category == null) continue;
+
+                TransactionSplit split = new TransactionSplit();
+
+                if(totalAmount > 0 && item.Amount <= totalAmount)
+                {
+                    split.Amount = item.Amount;
+                }
+                else
+                {
+                    return null;
+                }
+
+                split.CategoryCode = item.CatCode;
+                split.TransactionId = transaction.Id;
+
+                totalAmount -= item.Amount;
+
+                await _repository.Split(split);
+            }
+            
+            return transaction;
         }
     }
 }
