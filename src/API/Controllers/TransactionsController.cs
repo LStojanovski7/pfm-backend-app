@@ -11,6 +11,7 @@ using Data.Entities.Contracts;
 using System.Linq;
 using System;
 using Data.Entities;
+using System.Globalization;
 
 namespace API.Controllers
 {
@@ -32,12 +33,30 @@ namespace API.Controllers
 
             var result = await _transactionService.GetTransactions(page.Value, pageSize.Value, sortBy, sortOrder);
 
-            List<TransactionModel> items = new List<TransactionModel>();
+            List<TransactionWithSplits> items = new List<TransactionWithSplits>();
 
-            DateTime dateF = DateTime.Parse(dateFrom);
-            DateTime dateT = DateTime.Parse(dateTo);
+            DateTime? dateF = null;
+            DateTime? dateT = null;
 
-            items = result.Items.Where(t => DateTime.Parse(t.Date) >= dateF && DateTime.Parse(t.Date) <= dateT).ToList();
+            if(!string.IsNullOrEmpty(dateFrom))
+            {
+                dateF = DateTime.ParseExact(dateFrom, "M/d/yyyy", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                dateF = DateTime.MinValue;
+            }
+
+            if(!string.IsNullOrEmpty(dateTo))
+            {
+                dateT = DateTime.ParseExact(dateTo, "M/d/yyyy", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                dateT = DateTime.MaxValue;
+            }
+
+            items = result.Items.Where(t => DateTime.ParseExact(t.Date, "M/D/yyyy", CultureInfo.InvariantCulture) >= dateF && DateTime.ParseExact(t.Date, "M/D/yyyy", CultureInfo.InvariantCulture) <= dateT).ToList();
 
             result.Items = items;
 
@@ -48,6 +67,11 @@ namespace API.Controllers
         public async Task<ActionResult> Import()
         {
             var file = Request.Form.Files[0];
+
+            if (file.ContentType != "text/csv")
+            {
+                return BadRequest();
+            }
 
             await _transactionService.Import(file.OpenReadStream());
 

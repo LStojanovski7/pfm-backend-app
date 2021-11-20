@@ -10,7 +10,7 @@ namespace Services.Transactions
 {
     public interface ITransactionServices
     {
-        Task<PageSortedList<TransactionModel>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc);
+        Task<PageSortedList<TransactionWithSplits>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc);
         Task Import(Stream stream);
         Task<Transaction> Categorize(string id, string catcode);
         Task<Transaction> Add(Transaction transaction);

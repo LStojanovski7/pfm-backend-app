@@ -17,8 +17,7 @@ namespace Data.Repositories.Transactions
         {
             _context = context;
         }
-
-        public async Task<PageSortedList<TransactionModel>> Get(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
+        public async Task<PageSortedList<TransactionWithSplits>> Get(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
         {
             var query = _context.Transactions.AsQueryable();
 
@@ -47,26 +46,40 @@ namespace Data.Repositories.Transactions
 
             var items = await query.ToListAsync();
 
-            List<TransactionModel> transactions = new List<TransactionModel>();
+            List<TransactionWithSplits> splitsItems = new List<TransactionWithSplits>();
 
             foreach(var item in items)
             {
-                TransactionModel transaction = new TransactionModel();
+                TransactionWithSplits split = new TransactionWithSplits();
 
-                transaction.Id = item.Id;
-                transaction.BeneficiaryName = item.BeneficiaryName;
-                transaction.Date = item.Date;
-                transaction.Direction = item.Direction;
-                transaction.Amount = item.Amount;
-                transaction.Description = item.Description;
-                transaction.Currency = item.Currency;
-                transaction.Mcc = item.Mcc;
-                transaction.Kind = item.Kind;
+                split.Id = item.Id;
+                split.BeneficiaryName = item.BeneficiaryName;
+                split.Date = item.Date;
+                split.Direction = item.Direction;
+                split.Amount = item.Amount;
+                split.Description = item.Description;
+                split.Currency = item.Currency;
+                split.Mcc = item.Mcc;
+                split.CatCode = item.CategoryCode;
 
-                transactions.Add(transaction);
+                List<SingleCategorySplit> splitsList = new List<SingleCategorySplit>();
+
+                foreach(var s in item.Splits)
+                {
+                    SingleCategorySplit singleCategorySplit = new SingleCategorySplit();
+
+                    singleCategorySplit.CatCode = s.CategoryCode;
+                    singleCategorySplit.Amount = s.Amount;
+
+                    splitsList.Add(singleCategorySplit);
+                }
+
+                split.Splits = splitsList;
+
+                splitsItems.Add(split);
             }
 
-            return new PageSortedList<TransactionModel>()
+            return new PageSortedList<TransactionWithSplits>()
             {
                 Page = page,
                 PageSize = pageSize,
@@ -74,12 +87,10 @@ namespace Data.Repositories.Transactions
                 SortOrder = sortOrder,
                 TotalCount = total,
                 TotalPages = totalPages == 0 ? 1 : totalPages,
-                Items = transactions,
+                Items = splitsItems,
             };
         }
-
         public async Task<Transaction> GetTransaction(string id) => await _context.Transactions.FindAsync(id);
-
         public async Task<Transaction> Add(Transaction transaction)
         {
             var entity = await _context.Transactions.FindAsync(transaction.Id);
@@ -98,7 +109,6 @@ namespace Data.Repositories.Transactions
 
             return transaction;
         }
-
         public async Task<Transaction> Update(Transaction transaction)
         {
             _context.Update(transaction);
@@ -106,7 +116,6 @@ namespace Data.Repositories.Transactions
 
             return transaction;
         }
-
         public async Task Split(TransactionSplit split)
         {
             await _context.Splits.AddAsync(split);
