@@ -55,7 +55,7 @@ namespace Data.Repositories.Transactions
                 split.Id = item.Id;
                 split.BeneficiaryName = item.BeneficiaryName;
                 split.Date = item.Date;
-                split.Direction = item.Direction;
+                split.Direction = item.Direction.ToString();
                 split.Amount = item.Amount;
                 split.Description = item.Description;
                 split.Currency = item.Currency;

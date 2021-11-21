@@ -146,6 +146,12 @@ namespace Services.Transactions
 
                 await _repository.Split(split);
             }
+
+            if(!string.IsNullOrEmpty(transaction.CategoryCode))
+            {
+                transaction.CategoryCode = null;
+                await _repository.Update(transaction);
+            }
             
             return transaction;
         }

@@ -41,6 +41,7 @@ namespace API.Controllers
             if(!string.IsNullOrEmpty(dateFrom))
             {
                 dateF = DateTime.ParseExact(dateFrom, "M/d/yyyy", CultureInfo.InvariantCulture);
+                // dateF = DateTime.Parse(dateFrom);
             }
             else
             {
@@ -56,7 +57,7 @@ namespace API.Controllers
                 dateT = DateTime.MaxValue;
             }
 
-            items = result.Items.Where(t => DateTime.ParseExact(t.Date, "M/D/yyyy", CultureInfo.InvariantCulture) >= dateF && DateTime.ParseExact(t.Date, "M/D/yyyy", CultureInfo.InvariantCulture) <= dateT).ToList();
+            items = result.Items.Where(t => DateTime.ParseExact(t.Date, "M/d/yyyy", CultureInfo.InvariantCulture) >= dateF && DateTime.ParseExact(t.Date, "M/d/yyyy", CultureInfo.InvariantCulture) <= dateT).ToList();
 
             result.Items = items;
 
@@ -91,7 +92,6 @@ namespace API.Controllers
             return Ok("Transaction splitted");
         }
 
-        // [HttpPost("{id}/categorize")]
         [HttpPost]
         [Route("{id}/categorize")]
         public async Task<ActionResult> Categorize([FromRoute] string id, [FromBody] CategorizeCommand command)
