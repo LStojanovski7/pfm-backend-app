@@ -1,0 +1,14 @@
+{
+    "rule-1":
+    {
+        "title": "",
+        "catcode": "",
+        "predicate": "mcc=5811"
+    },
+    "rule-2":
+    {
+        "title": "",
+        "catcode": "",
+        "predicate": "beneficiary-name LIKE '%chevron%' OR beneficiary-name LIKE '%shell%'"
+    }
+}

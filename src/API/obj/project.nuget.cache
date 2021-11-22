@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Qw9kTa3oWv38SgrCKajyAyLGWG+M/0Gie0S32zUSkSdxgEByjyoGxNt+zzLjnPbeGfg4vlGg1bbfCM++zVUaXA==",
+  "dgSpecHash": "3C2TntOxLzE/PT3nEx0S2XMXjDv6drfFeaB4sKwP8YJO8phNPtpdWgO3CY5DefV84yyOwgaU2cm4OW2YEipZ4Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\pfm-backend-app\\src\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
@@ -33,7 +33,7 @@
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\PC\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\npgsql\\5.0.10\\npgsql.5.0.10.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.10\\npgsql.entityframeworkcore.postgresql.5.0.10.nupkg.sha512",

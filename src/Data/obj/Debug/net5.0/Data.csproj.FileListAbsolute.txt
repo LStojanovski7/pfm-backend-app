@@ -4,7 +4,6 @@ C:\Users\PC\Desktop\pfm-backend-app\src\Data\bin\Debug\net5.0\Data.runtimeconfig
 C:\Users\PC\Desktop\pfm-backend-app\src\Data\bin\Debug\net5.0\Data.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\Data\bin\Debug\net5.0\ref\Data.dll
 C:\Users\PC\Desktop\pfm-backend-app\src\Data\bin\Debug\net5.0\Data.pdb
-C:\Users\PC\Desktop\pfm-backend-app\src\Data\obj\Debug\net5.0\Data.csproj.AssemblyReference.cache
 C:\Users\PC\Desktop\pfm-backend-app\src\Data\obj\Debug\net5.0\Data.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\PC\Desktop\pfm-backend-app\src\Data\obj\Debug\net5.0\Data.AssemblyInfoInputs.cache
 C:\Users\PC\Desktop\pfm-backend-app\src\Data\obj\Debug\net5.0\Data.AssemblyInfo.cs
@@ -28,3 +27,4 @@ C:\Users\PC\Desktop\Testing rel\src\Data\obj\Debug\net5.0\Data.dll
 C:\Users\PC\Desktop\Testing rel\src\Data\obj\Debug\net5.0\ref\Data.dll
 C:\Users\PC\Desktop\Testing rel\src\Data\obj\Debug\net5.0\Data.pdb
 C:\Users\PC\Desktop\Testing rel\src\Data\obj\Debug\net5.0\Data.genruntimeconfig.cache
+C:\Users\PC\Desktop\pfm-backend-app\src\Data\obj\Debug\net5.0\Data.csproj.AssemblyReference.cache

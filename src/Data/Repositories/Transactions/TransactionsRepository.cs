@@ -122,5 +122,10 @@ namespace Data.Repositories.Transactions
             await _context.Splits.AddAsync(split);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<Transaction>> GetAll()
+        {
+            return await _context.Transactions.ToListAsync();
+        }
     }
 }

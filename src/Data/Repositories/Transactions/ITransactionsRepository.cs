@@ -3,6 +3,7 @@ using Data.Entities.Enums;
 using Data.Entities.Contracts;
 using Data.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Data.Repositories.Transactions
 {
@@ -13,5 +14,6 @@ namespace Data.Repositories.Transactions
         Task<Transaction> Add(Transaction transaction);
         Task<Transaction> Update(Transaction transaction);
         Task Split(TransactionSplit split);
+        Task<List<Transaction>> GetAll();
     }
 }

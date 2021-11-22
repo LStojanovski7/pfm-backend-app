@@ -40,9 +40,13 @@ namespace Services.Categories
                 query = query.Where(x => x.Code == catcode).ToList();
             }
 
-            // if(catcode == "c")
+            // if(direction == "c")
             // {
-            //     query = query.Select(x => x.Transactions.Where(c => c.Direction == Direction.c));
+            //     transactions = query.SelectMany(b => b.Transactions).Where(x => x.Direction.ToString() == "c").ToList();
+            // }
+            // else
+            // {
+            //     transactions = query.SelectMany(b => b.Transactions).Where(x => x.Direction.ToString() == "d").ToList();
             // }
 
             Groups groups = new Groups();
@@ -53,9 +57,13 @@ namespace Services.Categories
                 Spending spending = new Spending();
 
                 spending.CatCode = item.Code;
+
                 spending.Count = item.Transactions.Count();
+                spending.Count += item.SubCategories.Select(x => x.Transactions).Count();
 
                 var amount = item.Transactions.Sum(x => x.Amount);
+
+                spending.Amount = amount;
 
                 spendingList.Add(spending);
             }
@@ -123,5 +131,7 @@ namespace Services.Categories
 
             return category;
         }
+
+        
     }
 }

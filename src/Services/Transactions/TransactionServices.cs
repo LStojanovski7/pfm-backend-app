@@ -12,6 +12,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using Data.Entities.Contracts;
 using Services.Categories;
+using Newtonsoft.Json;
 
 namespace Services.Transactions
 {
@@ -163,6 +164,28 @@ namespace Services.Transactions
             await _repository.Update(transaction);
             
             return transaction;
+        }
+
+        public async Task AutoCategorize()
+        {
+            List<Rule> rules = new List<Rule>();
+
+            using(StreamReader reader = new StreamReader(@"../../../files/rule.json"))
+            {
+                string line = await reader.ReadToEndAsync();
+                rules = JsonConvert.DeserializeObject<List<Rule>>(line);
+            }
+
+            var transactions = await _repository.GetAll();
+
+            // if(item.CategoryCode == null || item.Splits.Count() == 0)
+            // {
+            // }
+
+            foreach(var rule in rules)
+            {
+                var query = transactions.Where(x => x.CategoryCode == null && x.Splits.Count() == 0);
+            }
         }
     }
 }
