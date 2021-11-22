@@ -64,7 +64,8 @@ namespace Data.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Amount).IsRequired();
-            builder.Property(x => x.CategoryCode).IsRequired();
+            builder.Property(x => x.CategoryCode);
+            builder.Property(x => x.TransactionId).IsRequired();
 
             builder.HasOne(x => x.Transaction)
                    .WithMany(b => b.Splits)

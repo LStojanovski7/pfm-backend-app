@@ -60,6 +60,7 @@ namespace Data.Repositories.Transactions
                 split.Description = item.Description;
                 split.Currency = item.Currency;
                 split.Mcc = item.Mcc;
+                split.Kind = item.Kind.ToString();
                 split.CatCode = item.CategoryCode;
 
                 List<SingleCategorySplit> splitsList = new List<SingleCategorySplit>();

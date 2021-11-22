@@ -14,13 +14,13 @@ namespace API.Controllers
             _categoryService = categoryServices;
         }
 
-        // public async Task<ActionResult> SpendingByCategory([FromQuery] string catcode, [FromQuery] string startDate, 
-        //                                                    [FromQuery]string endDate, [FromQuery] string direction)
-        // {
-        //     //TODO:
-        //     await _categoryService.GetCategories();
+        [HttpGet]
+        public async Task<ActionResult> SpendingByCategory([FromQuery] string catcode, [FromQuery] string startDate, 
+                                                           [FromQuery]string endDate, [FromQuery] string direction)
+        {
+            var response = await _categoryService.SpendingByCategory(catcode, startDate, endDate, direction);
 
-        //     return Ok();
-        // }
+            return Ok(response);
+        }
     }
 }

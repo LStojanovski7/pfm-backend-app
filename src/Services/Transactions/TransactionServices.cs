@@ -119,7 +119,7 @@ namespace Services.Transactions
         public async Task<Transaction> Split(string id, List<SingleCategorySplit> splits)
         {
             var transaction = await _repository.GetTransaction(id);
-            
+
             double totalAmount = transaction.Amount;
 
             foreach(var item in splits)
@@ -147,11 +147,20 @@ namespace Services.Transactions
                 await _repository.Split(split);
             }
 
-            if(!string.IsNullOrEmpty(transaction.CategoryCode))
+            if(totalAmount > 0)
             {
-                transaction.CategoryCode = null;
-                await _repository.Update(transaction);
+                TransactionSplit split = new TransactionSplit();
+
+                split.CategoryCode = null;
+
+                split.Amount = totalAmount;
+                split.TransactionId = transaction.Id;
+
+                await _repository.Split(split);
             }
+
+            transaction.CategoryCode = null;
+            await _repository.Update(transaction);
             
             return transaction;
         }

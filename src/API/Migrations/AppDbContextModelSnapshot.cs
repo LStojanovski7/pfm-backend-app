@@ -93,10 +93,10 @@ namespace API.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<string>("CategoryCode")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("TransactionId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -133,13 +133,13 @@ namespace API.Migrations
                     b.HasOne("Data.Entities.Category", "Category")
                         .WithMany("TransactionSplits")
                         .HasForeignKey("CategoryCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Data.Entities.Transaction", "Transaction")
                         .WithMany("Splits")
                         .HasForeignKey("TransactionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 

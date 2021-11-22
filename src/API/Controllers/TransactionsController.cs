@@ -69,14 +69,10 @@ namespace API.Controllers
         {
             var file = Request.Form.Files[0];
 
-            if (file.ContentType != "text/csv")
-            {
-                return BadRequest();
-            }
-
             await _transactionService.Import(file.OpenReadStream());
 
             return Ok("Transactions imported");
+            // return Ok("{}");
         }
 
         [HttpPost("{id}/split")]
@@ -89,7 +85,7 @@ namespace API.Controllers
 
             await _transactionService.Split(id, command.Splits);
 
-            return Ok("Transaction splitted");
+            return Ok("{}");
         }
 
         [HttpPost]
@@ -103,7 +99,8 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            return Ok("OK - Transaction categorized");
+            // return Ok("OK - Transaction categorized");
+            return Ok(new {value = "OK"});
         }
 
         [HttpPost("/auto-categorize")]

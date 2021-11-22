@@ -13,6 +13,7 @@ namespace Data.Entities
         public string Description { get; set; }
         public string Currency { get; set; }
         public int? Mcc { get; set; }
+        public string Kind { get; set; }
         public string CatCode { get; set; }
         public List<SingleCategorySplit> Splits { get; set; }
     }

@@ -52,10 +52,10 @@ namespace API.Controllers
         {
             var file = Request.Form.Files[0];
 
-            if(file.ContentType != "text/csv")
-            {
-               BadRequest("Your request was not constructed properly. Response contains the list of validation errors for each invalid element of your request. To learn more see general guidance on validation");
-            }
+            // if(file.ContentType != "text/csv")
+            // {
+            //    BadRequest("Your request was not constructed properly. Response contains the list of validation errors for each invalid element of your request. To learn more see general guidance on validation");
+            // }
 
             await _categoryService.Import(file.OpenReadStream());
 
