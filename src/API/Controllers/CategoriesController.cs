@@ -30,7 +30,8 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult> Get([FromQuery] string parrentId = null)
         {
-            List<CategoryModel> categoriesList = new List<CategoryModel>();
+            CategoriesList categories = new CategoriesList();
+            List<CategoryModel> items = new List<CategoryModel>();
 
             var result = await _categoryService.GetCategories(parrentId);
 
@@ -38,10 +39,12 @@ namespace API.Controllers
             {
                 CategoryModel category = new CategoryModel();
 
-                categoriesList.Add(_mapper.Map(item, category));
+                items.Add(_mapper.Map(item, category));
             }
 
-            return Ok(categoriesList);
+            categories.Items = items;
+
+            return Ok(categories);
         }
 
         [HttpPost("import")]
@@ -49,10 +52,10 @@ namespace API.Controllers
         {
             var file = Request.Form.Files[0];
 
-            if(file.ContentType != "text/csv")
-            {
-               BadRequest("Your request was not constructed properly. Response contains the list of validation errors for each invalid element of your request. To learn more see general guidance on validation");
-            }
+            // if(file.ContentType != "text/csv")
+            // {
+            //    BadRequest("Your request was not constructed properly. Response contains the list of validation errors for each invalid element of your request. To learn more see general guidance on validation");
+            // }
 
             await _categoryService.Import(file.OpenReadStream());
 

@@ -13,6 +13,6 @@ namespace Services.Categories
         Task Import(Stream stream);
         Task<Category> Add(Category category);
         Task<Category> Update(Category category);
-        // Task<Groups> SpendingByCategory(string catcode, string startDate, string endDate, string direction);
+        Task<Groups> SpendingByCategory(string catcode = null, string startDate = null, string endDate = null, string direction = null);
     }
 }

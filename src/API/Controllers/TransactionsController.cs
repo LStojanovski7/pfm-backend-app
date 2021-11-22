@@ -11,6 +11,7 @@ using Data.Entities.Contracts;
 using System.Linq;
 using System;
 using Data.Entities;
+using System.Globalization;
 
 namespace API.Controllers
 {
@@ -32,12 +33,31 @@ namespace API.Controllers
 
             var result = await _transactionService.GetTransactions(page.Value, pageSize.Value, sortBy, sortOrder);
 
-            List<TransactionModel> items = new List<TransactionModel>();
+            List<TransactionWithSplits> items = new List<TransactionWithSplits>();
 
-            DateTime dateF = DateTime.Parse(dateFrom);
-            DateTime dateT = DateTime.Parse(dateTo);
+            DateTime? dateF = null;
+            DateTime? dateT = null;
 
-            items = result.Items.Where(t => DateTime.Parse(t.Date) >= dateF && DateTime.Parse(t.Date) <= dateT).ToList();
+            if(!string.IsNullOrEmpty(dateFrom))
+            {
+                dateF = DateTime.ParseExact(dateFrom, "M/d/yyyy", CultureInfo.InvariantCulture);
+                // dateF = DateTime.Parse(dateFrom);
+            }
+            else
+            {
+                dateF = DateTime.MinValue;
+            }
+
+            if(!string.IsNullOrEmpty(dateTo))
+            {
+                dateT = DateTime.ParseExact(dateTo, "M/d/yyyy", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                dateT = DateTime.MaxValue;
+            }
+
+            items = result.Items.Where(t => DateTime.ParseExact(t.Date, "M/d/yyyy", CultureInfo.InvariantCulture) >= dateF && DateTime.ParseExact(t.Date, "M/d/yyyy", CultureInfo.InvariantCulture) <= dateT).ToList();
 
             result.Items = items;
 
@@ -52,6 +72,7 @@ namespace API.Controllers
             await _transactionService.Import(file.OpenReadStream());
 
             return Ok("Transactions imported");
+            // return Ok("{}");
         }
 
         [HttpPost("{id}/split")]
@@ -64,10 +85,9 @@ namespace API.Controllers
 
             await _transactionService.Split(id, command.Splits);
 
-            return Ok("OK");
+            return Ok("{}");
         }
 
-        // [HttpPost("{id}/categorize")]
         [HttpPost]
         [Route("{id}/categorize")]
         public async Task<ActionResult> Categorize([FromRoute] string id, [FromBody] CategorizeCommand command)
@@ -79,7 +99,8 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            return Ok("OK - Transaction categorized");
+            // return Ok("OK - Transaction categorized");
+            return Ok(new {value = "OK"});
         }
 
         [HttpPost("/auto-categorize")]

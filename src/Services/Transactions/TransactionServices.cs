@@ -25,21 +25,18 @@ namespace Services.Transactions
             _repository = repository;
             _categoryService = categoryService;
         }
-
-        public async Task<PageSortedList<TransactionModel>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
+        public async Task<PageSortedList<TransactionWithSplits>> GetTransactions(int page = 1, int pageSize = 10, string sortBy = null, SortOrder sortOrder = SortOrder.Asc)
         {
             var result = await _repository.Get(page, pageSize, sortBy, sortOrder); 
 
             return result;
         }
-
         public async Task<Transaction> Add(Transaction transaction)
         {
             await _repository.Add(transaction);
 
             return transaction;
         }
-
         public async Task<Transaction> Update(Transaction transaction)
         {
             var entity = await _repository.GetTransaction(transaction.Id);
@@ -55,7 +52,6 @@ namespace Services.Transactions
             
             return transaction;
         }
-
         public async Task Import(Stream stream)
         {
             List<TransactionCSV> result = new List<TransactionCSV>();
@@ -103,7 +99,6 @@ namespace Services.Transactions
                 await _repository.Add(transaction);
             }
         }
-
         public async Task<Transaction> Categorize(string id, string catcode)
         {
             var transaction = await _repository.GetTransaction(id);
@@ -121,11 +116,10 @@ namespace Services.Transactions
 
             return transaction;
         }
-
         public async Task<Transaction> Split(string id, List<SingleCategorySplit> splits)
         {
             var transaction = await _repository.GetTransaction(id);
-            
+
             double totalAmount = transaction.Amount;
 
             foreach(var item in splits)
@@ -152,6 +146,21 @@ namespace Services.Transactions
 
                 await _repository.Split(split);
             }
+
+            if(totalAmount > 0)
+            {
+                TransactionSplit split = new TransactionSplit();
+
+                split.CategoryCode = null;
+
+                split.Amount = totalAmount;
+                split.TransactionId = transaction.Id;
+
+                await _repository.Split(split);
+            }
+
+            transaction.CategoryCode = null;
+            await _repository.Update(transaction);
             
             return transaction;
         }
